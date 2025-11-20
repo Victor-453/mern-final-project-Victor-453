@@ -19,7 +19,7 @@ services:
     healthCheckPath: /api/products
 
   # Frontend Static Site (Vite-built assets)
-  - type: static
+  - type: static_site
     name: cartify-frontend
     env: static
     plan: free
