@@ -1,12 +1,12 @@
 services:
-  # Backend Web Service
+  # Backend Web Service (Express)
   - type: web
     name: cartify-backend
     env: node
     region: oregon
     plan: free
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: npm install --prefix backend
+    startCommand: npm start --prefix backend
     envVars:
       - key: NODE_ENV
         value: production
@@ -14,20 +14,17 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: PORT
-        value: 10000
       - key: CLIENT_URL
         sync: false
     healthCheckPath: /api/products
 
-  # Frontend Static Site
-  - type: web
+  # Frontend Static Site (Vite-built assets)
+  - type: static
     name: cartify-frontend
     env: static
-    region: oregon
     plan: free
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_BASE_URL
         sync: false
