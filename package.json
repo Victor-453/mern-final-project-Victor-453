@@ -4,8 +4,8 @@
   "description": "Modern E-commerce Platform - Cartify",
   "main": "index.js",
   "scripts": {
-    "install:backend": "npm install",
-    "install:frontend": "npm --prefix frontend install",
+    "install:backend": "npm install --production=false",
+    "install:frontend": "npm --prefix frontend install --production=false",
     "build:frontend": "npm --prefix frontend run build",
     "build": "npm run install:backend && npm run install:frontend && npm run build:frontend",
     "start": "cross-env NODE_ENV=production node backend/server.js",
