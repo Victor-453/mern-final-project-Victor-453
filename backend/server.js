@@ -50,8 +50,8 @@ if (process.env.NODE_ENV === 'production') {
   // Serve static files from the frontend dist folder
   app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-  // Catch-all route to serve index.html for any non-API routes
-  app.get('*', (req, res) => {
+  // Catch-all route to serve index.html for any non-API routes (Express v5 compatible)
+  app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }
