@@ -1,12 +1,9 @@
 # Blueprint for Victor-453/mern-final-project-Victor-453
-name: cartify
-branch: main
-
 services:
   # Backend Web Service (Express)
-  - type: web
+  - name: cartify-backend
+    type: web
     runtime: node
-    name: cartify-backend
     region: oregon
     plan: free
     buildCommand: npm install --prefix backend
@@ -23,9 +20,9 @@ services:
     healthCheckPath: /api/products
 
   # Frontend Static Site (Vite-built assets)
-  - type: web            # static sites are declared as web services
-    runtime: static     # <-- important: static runtime for static sites
-    name: cartify-frontend
+  - name: cartify-frontend
+    type: web            # static sites are declared as web services
+    runtime: static     # <-- static runtime for static sites
     plan: free
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
