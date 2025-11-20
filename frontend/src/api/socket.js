@@ -1,8 +1,11 @@
 import { io } from 'socket.io-client';
 
+// In production, use same domain. In development, use localhost:5000
 const SOCKET_URL =
   import.meta.env.VITE_API_BASE_URL?.replace('/api', '') ||
-  'http://localhost:5000';
+  (import.meta.env.MODE === 'production'
+    ? window.location.origin
+    : 'http://localhost:5000');
 
 let socket = null;
 
