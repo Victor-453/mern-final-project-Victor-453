@@ -1,11 +1,11 @@
-# ⚡ Quick Start - Deployment Guide
+# ⚡ Quick Start - Render Deployment Guide
 
-**Get your Cartify app deployed in under 30 minutes!**
+**Get your Cartify app deployed on Render in under 30 minutes!**
 
 ## 🎯 Overview
 
-- **Backend**: Render (Free tier) → https://render.com
-- **Frontend**: Vercel (Free tier) → https://vercel.com
+- **Backend**: Render Web Service (Free tier) → https://render.com
+- **Frontend**: Render Static Site (Free tier) → https://render.com
 - **Database**: MongoDB Atlas (Free tier) → https://mongodb.com/cloud/atlas
 
 ## 📝 Prerequisites Checklist
@@ -15,9 +15,9 @@ Before you start, make sure you have:
 - [ ] Code pushed to GitHub
 - [ ] MongoDB Atlas account and database created
 - [ ] Render account created
-- [ ] Vercel account created
+- [ ] `render.yaml` file in root directory (✅ already created)
 
-## 🚀 Deployment in 5 Steps
+## 🚀 Deployment in 4 Steps
 
 ### Step 1: Setup MongoDB (5 minutes)
 
@@ -30,68 +30,47 @@ Before you start, make sure you have:
    mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/cartify
    ```
 
-### Step 2: Deploy Backend on Render (10 minutes)
+### Step 2: Deploy on Render Using Blueprint (15 minutes)
 
 1. Go to [Render Dashboard](https://dashboard.render.com/)
-2. Click "New +" → "Web Service"
-3. Connect your GitHub repo
-4. Configure:
-   - Name: `cartify-backend`
-   - Build: `npm install`
-   - Start: `npm start`
-5. Add Environment Variables:
+2. Click "New +" → "Blueprint"
+3. Connect your GitHub repo: `mern-final-project-Victor-453`
+4. Render detects `render.yaml` and shows TWO services:
+   - **cartify-backend** (Web Service)
+   - **cartify-frontend** (Static Site)
+
+5. Configure **Backend** Environment Variables:
    ```
    NODE_ENV=production
    PORT=10000
    MONGO_URI=<your-mongodb-connection-string>
    JWT_SECRET=<generate-random-string>
-   CLIENT_URL=https://temporary-will-update-later.vercel.app
+   CLIENT_URL=https://cartify-frontend.onrender.com
    ```
-6. Click "Create Web Service"
-7. **Wait for deployment** → Copy your backend URL
+
+6. Configure **Frontend** Environment Variables:
    ```
-   Example: https://cartify-backend.onrender.com
+   VITE_API_BASE_URL=https://cartify-backend.onrender.com/api
    ```
+
+7. Click "Apply" to deploy BOTH services
+8. **Wait for deployment** (10-15 minutes)
+   - Backend: `https://cartify-backend.onrender.com`
+   - Frontend: `https://cartify-frontend.onrender.com`
 
 **Generate JWT Secret:**
 ```bash
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
-### Step 3: Deploy Frontend on Vercel (10 minutes)
+### Step 3: Verify Environment Variables (2 minutes)
 
-1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Click "Add New..." → "Project"
-3. Import your GitHub repository
-4. Configure:
-   - Framework: Vite (auto-detected)
-   - Root Directory: `frontend`
-   - Build: `npm run build`
-   - Output: `dist`
-5. Add Environment Variable:
-   ```
-   VITE_API_BASE_URL=https://your-backend-url.onrender.com/api
-   ```
-   (Use your backend URL from Step 2)
-6. Click "Deploy"
-7. **Wait for deployment** → Copy your frontend URL
-   ```
-   Example: https://your-app-name.vercel.app
-   ```
+Double-check that:
+1. Backend `CLIENT_URL` = `https://cartify-frontend.onrender.com`
+2. Frontend `VITE_API_BASE_URL` = `https://cartify-backend.onrender.com/api`
+3. Both services are deployed and running
 
-### Step 4: Update Backend CLIENT_URL (2 minutes)
-
-1. Go back to Render Dashboard
-2. Open your backend service
-3. Go to "Environment" tab
-4. Update `CLIENT_URL`:
-   ```
-   CLIENT_URL=https://your-app-name.vercel.app
-   ```
-   (Use your frontend URL from Step 3)
-5. Save → Backend will redeploy automatically
-
-### Step 5: Test Your App (5 minutes)
+### Step 4: Test Your App (5 minutes)
 
 1. Visit your frontend URL
 2. Test these features:
@@ -103,11 +82,12 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
    - [ ] Checkout
    - [ ] View orders
 
-## ✅ Done! Your App is Live!
+## ✅ Done! Your App is Live on Render!
 
 Your application is now deployed:
-- **Frontend**: `https://your-app-name.vercel.app`
-- **Backend**: `https://your-backend-url.onrender.com`
+- **Frontend**: `https://cartify-frontend.onrender.com`
+- **Backend**: `https://cartify-backend.onrender.com`
+- **Both services hosted on Render!**
 
 ## 🎨 Next Steps
 
@@ -132,9 +112,9 @@ Need more details? Check these files:
 - Ensure all environment variables are set
 
 ### Frontend can't reach backend?
-- Verify `VITE_API_BASE_URL` includes your backend URL + `/api`
+- Verify `VITE_API_BASE_URL` = `https://cartify-backend.onrender.com/api`
 - Check browser console for CORS errors
-- Ensure `CLIENT_URL` on backend matches frontend URL
+- Ensure `CLIENT_URL` on backend = `https://cartify-frontend.onrender.com`
 
 ### Socket.io not connecting?
 - Check browser console for connection errors
@@ -143,10 +123,12 @@ Need more details? Check these files:
 
 ## 💡 Pro Tips
 
-1. **Render Free Tier**: Backend sleeps after 15 min of inactivity. First request may be slow.
-2. **Environment Variables**: Always update on platform dashboard, not in code.
-3. **Logs**: Check logs first when troubleshooting issues.
-4. **Auto-Deploy**: Both platforms redeploy automatically on Git push.
+1. **Render Free Tier Backend**: Sleeps after 15 min of inactivity. First request may be slow (30-60s).
+2. **Render Free Tier Frontend**: Static site is always active, no cold starts!
+3. **Environment Variables**: Always update in Render Dashboard → Environment tab.
+4. **Logs**: Check Render Dashboard → Service → Logs for debugging.
+5. **Auto-Deploy**: Both services redeploy automatically on Git push to `main`.
+6. **Blueprint**: Using Blueprint keeps both services in sync.
 
 ## 🆘 Still Need Help?
 

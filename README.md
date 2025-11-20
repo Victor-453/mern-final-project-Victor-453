@@ -295,9 +295,9 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ## 🚀 Deployment
 
-This application is ready for deployment to:
-- **Backend**: Render (Node.js hosting)
-- **Frontend**: Vercel (React/Vite hosting)
+This application is ready for deployment on **Render** (both frontend and backend):
+- **Backend**: Render Web Service (Node.js/Express API)
+- **Frontend**: Render Static Site (React/Vite)
 
 ### 📚 Deployment Guide
 
@@ -305,21 +305,21 @@ For detailed step-by-step deployment instructions, see **[DEPLOYMENT.md](DEPLOYM
 
 ### Quick Deployment Steps
 
-1. **Deploy Backend to Render**
+1. **Deploy Both Services Using Render Blueprint**
    - Push code to GitHub
-   - Connect repository to Render
-   - Set environment variables
-   - Deploy backend (get backend URL)
+   - Go to Render Dashboard → New Blueprint
+   - Connect repository
+   - Render detects `render.yaml` and creates both services
+   - Configure environment variables for both services
+   - Deploy (both services deploy together)
 
-2. **Deploy Frontend to Vercel**
-   - Connect repository to Vercel
-   - Set root directory to `frontend`
-   - Add `VITE_API_BASE_URL` environment variable
-   - Deploy frontend
+2. **Set Environment Variables**
+   - **Backend**: `MONGO_URI`, `JWT_SECRET`, `CLIENT_URL`
+   - **Frontend**: `VITE_API_BASE_URL`
 
-3. **Update Backend**
-   - Update `CLIENT_URL` in Render with Vercel frontend URL
-   - Redeploy backend
+3. **Verify Deployment**
+   - Backend: `https://cartify-backend.onrender.com`
+   - Frontend: `https://cartify-frontend.onrender.com`
 
 ### Environment Variables Reference
 
