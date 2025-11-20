@@ -47,8 +47,11 @@ app.use('/api/orders', orderRoutes);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
-  app.get(/^\/(?!api).*/, (req, res) => {
+  // Serve static files from the frontend dist folder
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+  // Catch-all route to serve index.html for any non-API routes
+  app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }
