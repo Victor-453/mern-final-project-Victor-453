@@ -2,6 +2,18 @@
 
 A full-stack MERN e-commerce platform with real-time updates via Socket.io, featuring product management, shopping cart, checkout, and admin dashboard.
 
+## 🌐 Live Demo
+
+**Live Application:** [https://mern-final-project-victor-453.onrender.com/](https://mern-final-project-victor-453.onrender.com/)
+
+### Test Credentials
+- **Admin Account:**
+  - Email: `admin@cartify.com`
+  - Password: `admin123`
+- **Regular User Account:**
+  - Email: `user@cartify.com`
+  - Password: `user123`
+
 ## 🚀 Features
 
 ### Customer Features
@@ -28,37 +40,40 @@ A full-stack MERN e-commerce platform with real-time updates via Socket.io, feat
 - 🌐 RESTful API
 - 🔄 Redux Toolkit for state management
 
-## � Screenshots
+## 📸 Screenshots
 
-### Home Page
-![Home Page](ScreenShots/Screenshot_20251120_102556.png)
+### Home Page (Light Mode)
+![Home Page Light](ScreenShots/homepage-light.png)
 
-### Product Catalog
-![Product Catalog](ScreenShots/Screenshot_20251120_102603.png)
+### Home Page (Dark Mode)
+![Home Page Dark](ScreenShots/homepage-dark.png)
 
-### Product Detail
-![Product Detail](ScreenShots/Screenshot_20251120_102806.png)
+### Product Filters
+![Product Filters](ScreenShots/homepage-filters.png)
+
+### Product Detail Page
+![Product Detail](ScreenShots/product-details.png)
 
 ### Shopping Cart
-![Shopping Cart](ScreenShots/Screenshot_20251120_102813.png)
+![Shopping Cart](ScreenShots/cart.png)
 
-### Checkout
-![Checkout](ScreenShots/Screenshot_20251120_102822.png)
+### User Registration
+![Register](ScreenShots/register.png)
 
-### User Profile
-![User Profile](ScreenShots/Screenshot_20251120_102831.png)
+### User Login
+![Login](ScreenShots/login.png)
 
-### Order History
-![Order History](ScreenShots/Screenshot_20251120_102842.png)
+### About Page
+![About](ScreenShots/about.png)
 
-### Admin Dashboard - Products
-![Admin Products](ScreenShots/Screenshot_20251120_102849.png)
+### Contact Page
+![Contact](ScreenShots/contact.png)
 
-### Admin Dashboard - Orders
-![Admin Orders](ScreenShots/Screenshot_20251120_102901.png)
+### Privacy Policy
+![Privacy Policy](ScreenShots/privacy-policy.png)
 
-### Responsive Design
-![Responsive Design](ScreenShots/Screenshot_20251120_102918.png)
+### Terms of Service
+![Terms of Service](ScreenShots/terms-of-service.png)
 
 ## �🛠️ Tech Stack
 
@@ -295,35 +310,45 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ## 🚀 Deployment
 
-This application is ready for deployment on **Render** (both frontend and backend):
-- **Backend**: Render Web Service (Node.js/Express API)
-- **Frontend**: Render Static Site (React/Vite)
+This application is deployed as a **unified single-server deployment** on Render, where the Express backend serves the production React build.
 
-### 📚 Deployment Guide
-
-For detailed step-by-step deployment instructions, see **[DEPLOYMENT.md](DEPLOYMENT.md)**
+### Deployment Architecture
+- **Single Web Service**: Backend serves both API and frontend static files
+- **Platform**: Render.com
+- **Build Process**: Automated with smart database seeding
+- **Database**: MongoDB Atlas
 
 ### Quick Deployment Steps
 
-1. **Deploy Both Services Using Render Blueprint**
-   - Push code to GitHub
-   - Go to Render Dashboard → New Blueprint
-   - Connect repository
-   - Render detects `render.yaml` and creates both services
-   - Configure environment variables for both services
-   - Deploy (both services deploy together)
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Deploy to Render"
+   git push
+   ```
 
-2. **Set Environment Variables**
-   - **Backend**: `MONGO_URI`, `JWT_SECRET`, `CLIENT_URL`
-   - **Frontend**: `VITE_API_BASE_URL`
+2. **Create Render Web Service**
+   - Go to [Render Dashboard](https://dashboard.render.com)
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - Configure:
+     - **Build Command**: `npm run build`
+     - **Start Command**: `npm start`
 
-3. **Verify Deployment**
-   - Backend: `https://cartify-backend.onrender.com`
-   - Frontend: `https://cartify-frontend.onrender.com`
+3. **Set Environment Variables** (in Render dashboard)
+   ```
+   MONGO_URI=your_mongodb_atlas_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   PORT=5000
+   NODE_ENV=production
+   CLIENT_URL=https://your-app.onrender.com
+   ```
 
-### Environment Variables Reference
-
-See **[ENV_VARIABLES.md](ENV_VARIABLES.md)** for complete environment variables setup.
+4. **Deploy** - Render will automatically:
+   - Install dependencies (backend & frontend)
+   - Build frontend production bundle
+   - Seed database if empty (automatic on first deployment)
+   - Start the server
 
 ### Production Build (Local Testing)
 ```bash
@@ -332,9 +357,39 @@ npm start
 ```
 
 The build command will:
-1. Install all dependencies
-2. Build the frontend
-3. Serve static files from backend
+1. Install backend dependencies
+2. Install frontend dependencies
+3. Build the frontend (creates `frontend/dist`)
+4. Run smart seeding (only if database is empty)
+
+The start command serves the Express API and static frontend files.
+
+## 🔄 Recent Changes & Updates
+
+### Deployment Configuration (November 2025)
+- ✅ **Unified Deployment**: Configured for single-server deployment (backend serves frontend)
+- ✅ **Express v5 Compatibility**: Updated route handling for Express v5's new path-to-regexp
+- ✅ **Smart Auto-Seeding**: Database automatically seeds on first deployment only
+- ✅ **Production API Fixes**: Fixed API client to use relative paths in production
+- ✅ **Socket.io Production**: Configured Socket.io for same-origin in production
+- ✅ **Removed Old Configs**: Cleaned up unused deployment files (render.yaml, vercel.json)
+
+### Package.json Scripts
+```json
+{
+  "build": "Install all deps + build frontend + smart seed",
+  "start": "Start production server",
+  "dev": "Run backend & frontend concurrently",
+  "seed": "Manual seed (clears data)",
+  "seed:auto": "Smart seed (only if empty)"
+}
+```
+
+### Key Features Added
+- Automatic database seeding on initial deployment
+- Production-optimized API configuration
+- Express v5 middleware-based SPA routing
+- Environment-aware API client (dev vs production)
 
 ## 🤝 Contributing
 
