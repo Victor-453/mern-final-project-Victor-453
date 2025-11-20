@@ -1,11 +1,11 @@
-# Blueprint for Victor-453/mern-final-project-Victor-453
+# render.yaml — Blueprint for Victor-453/mern-final-project-Victor-453
 services:
   # Backend Web Service (Express)
   - name: cartify-backend
     type: web
     runtime: node
+    plan: free                 # allowed values: free, starter, standard, pro, pro plus, ...
     region: oregon
-    plan: free
     buildCommand: npm install --prefix backend
     startCommand: npm start --prefix backend
     envVars:
@@ -21,9 +21,9 @@ services:
 
   # Frontend Static Site (Vite-built assets)
   - name: cartify-frontend
-    type: web            # static sites are declared as web services
-    runtime: static     # <-- static runtime for static sites
-    plan: free
+    type: web
+    runtime: static
+    plan: free                 # static sites use plan as well; remove region for static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     envVars:
