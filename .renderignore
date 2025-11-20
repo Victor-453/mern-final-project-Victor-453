@@ -1,0 +1,28 @@
+# Files and directories to ignore during Render deployment
+
+# Frontend build files (not needed on backend)
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Development files
+.git/
+.gitignore
+*.md
+!README.md
+
+# Screenshots
+ScreenShots/
+
+# IDE files
+.vscode/
+.idea/
+
+# Test files
+*.test.js
+*.spec.js
+__tests__/
+
+# Documentation
+docs/

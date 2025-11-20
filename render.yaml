@@ -1,0 +1,21 @@
+services:
+  # Backend Web Service
+  - type: web
+    name: cartify-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        sync: false
+    healthCheckPath: /api/products
